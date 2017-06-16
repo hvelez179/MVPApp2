@@ -48,17 +48,19 @@ public class UsersPresenter implements UsersContract.Presenter{
             @Override
             public void onResponse(Call<UserData> call, retrofit2.Response<UserData> response) {
                 if (response.isSuccessful()) {
+                    String imageUrl = "";
                     String currentName = "";
                     String currentAddress = "";
                     String currentEmail = "";
 
                     UserData resultBody = response.body();
                     for (Result result : resultBody.getResults()) {
+                        imageUrl = result.getPicture().getLarge();
                         currentName = result.getName().getTitle() + " " + result.getName().getFirst() + " " + result.getName().getLast();
                         currentAddress = result.getLocation().getStreet() + " " + result.getLocation().getCity() + " " + result.getLocation().getState() + " " + result.getLocation().getPostcode();
                         currentEmail = result.getEmail();
 
-                        User currentUser = new User(currentName, currentAddress, currentEmail);
+                        User currentUser = new User(imageUrl, currentName, currentAddress, currentEmail);
                         listUserData.add(currentUser);
 
                     }

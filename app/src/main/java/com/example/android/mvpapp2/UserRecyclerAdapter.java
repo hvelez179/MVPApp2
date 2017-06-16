@@ -45,7 +45,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
         return users.size();
     }
 
-    public class ViewHolder extends  RecyclerView.ViewHolder{
+    public class ViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener{
         TextView userTV;
         ImageView userImageView;
 
@@ -53,6 +53,14 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
             super(itemView);
             userImageView =(ImageView)itemView.findViewById(R.id.img_user);
             userTV = (TextView)itemView.findViewById(R.id.tv_names);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(listItemClickListener != null) {
+                listItemClickListener.OnItemClick(v, getAdapterPosition());
+            }
         }
     }
 
